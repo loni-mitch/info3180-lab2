@@ -7,7 +7,11 @@ This file creates your application.
 
 from app import app
 from flask import render_template, request, redirect, url_for, flash
+import time
 
+def timeinfo():
+    now = time.strftime("%a, %d %b %Y")
+    return now
 
 ###
 # Routing for your application.
@@ -22,7 +26,7 @@ def home():
 @app.route('/about/')
 def about():
     """Render the website's about page."""
-    return render_template('about.html', name="Mary Jane")
+    return render_template('about.html', name="Loni Mitchell")
 
 
 ###
@@ -34,6 +38,10 @@ def send_text_file(file_name):
     """Send your static text file."""
     file_dot_text = file_name + '.txt'
     return app.send_static_file(file_dot_text)
+    
+@app.route('/profile')
+def profile():
+    return render_template('profile.html', date = timeinfo())
 
 
 @app.after_request
